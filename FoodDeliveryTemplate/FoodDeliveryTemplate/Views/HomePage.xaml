@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FoodDeliveryTemplate.Views.HomePage"
+             xmlns:vm="clr-namespace:FoodDeliveryTemplate.ViewModels"
+             xmlns:model="clr-namespace:FoodDeliveryTemplate.Models"
+             xmlns:ctrl="clr-namespace:FoodDeliveryTemplate.Controls"
+             xmlns:customview="clr-namespace:FoodDeliveryTemplate.CustomViews"
+             xmlns:res="clr-namespace:FoodDeliveryTemplate.Resources"
+             xmlns:template="clr-namespace:FoodDeliveryTemplate.ControlTemplates"
+             BackgroundColor="{AppThemeBinding Dark={StaticResource BackgroundColorDark},
+                Light={StaticResource BackgroundColorLight}}"
+             Title="{x:Static res:AppResources.YourBrand}">
+
+    <Shell.SearchHandler>
+
+        <ctrl:PlaceSearchHandler Placeholder="{x:Static res:AppResources.EnterSearchTerm}"
+                                   ShowsResults="true">
+
+            <ctrl:PlaceSearchHandler.ItemTemplate>
+
+                <DataTemplate>
+
+                    <Label Text="{Binding Name}"
+                           Style="{StaticResource MediumSecondaryLabelStyle}"
+                           VerticalTextAlignment="Center"
+                           Padding="10" />
+
+                </DataTemplate>
+
+            </ctrl:PlaceSearchHandler.ItemTemplate>
+
+        </ctrl:PlaceSearchHandler>
+
+    </Shell.SearchHandler>
+
+    <ScrollView Padding="15">
+
+        <StackLayout Spacing="15">
+
+            <Grid RowDefinitions="*, Auto"
+                  HeightRequest="200">
+
+                <CarouselView ItemsSource="{Binding FeaturedPlaces}"
+                              Grid.RowSpan="2"
+                              IndicatorView="indicatorView">
+
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <customview:FeaturedPlaceView/>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+
+                </CarouselView>
+
+                <IndicatorView x:Name="indicatorView"
+                                IndicatorColor="{AppThemeBinding Light={StaticResource PrimaryColorLight},
+                                    Dark={StaticResource PrimaryColorDark}}"
+                                SelectedIndicatorColor="LightGray"
+                                HorizontalOptions="Center"
+                                VerticalOptions="End"
+                                Margin="10"
+                                Grid.Row="1"/>
+            </Grid>
+
+            <CollectionView ItemsSource="{Binding Cuisines}"
+                            SelectionMode="None"
+                            HeightRequest="110"
+                            HorizontalScrollBarVisibility="Never">
+
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal" />
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <customview:CuisineView />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+            <StackLayout Orientation="Horizontal">
+
+                <Label Text="{x:Static res:AppResources.Recent}"
+                        Style="{StaticResource BoldMediumSecondaryLabelStyle}"
+                        HorizontalOptions="StartAndExpand"
+                        VerticalOptions="Center" />
+
+                <Label Text="{x:Static res:AppResources.SeeAll}"
+                        TextColor="{AppThemeBinding Light={StaticResource PrimaryColorLight},
+                            Dark={StaticResource PrimaryColorDark}}"
+                        TextDecorations="Underline"
+                        FontSize="Medium"
+                        HorizontalOptions="End"
+                        VerticalOptions="Center">
+
+                    <Label.GestureRecognizers>
+
+                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                Command="{Binding SeeAllRecentCommand}" />
+
+                    </Label.GestureRecognizers>
+
+                </Label>
+
+            </StackLayout>
+
+            <CollectionView ItemsSource="{Binding RecentPlaces}"
+                            SelectionMode="None"
+                            HeightRequest="250"
+                            HorizontalScrollBarVisibility="Never">
+
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal" />
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <customview:PlaceView />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+            <StackLayout Orientation="Horizontal">
+
+                <Label Text="{x:Static res:AppResources.Popular}"
+                        Style="{StaticResource BoldMediumSecondaryLabelStyle}"
+                        HorizontalOptions="StartAndExpand"
+                        VerticalOptions="Center" />
+
+                <Label Text="{x:Static res:AppResources.SeeAll}"
+                        TextColor="{AppThemeBinding Light={StaticResource PrimaryColorLight},
+                            Dark={StaticResource PrimaryColorDark}}"
+                        TextDecorations="Underline"
+                        FontSize="Medium"
+                        HorizontalOptions="End"
+                        VerticalOptions="Center">
+
+                    <Label.GestureRecognizers>
+
+                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                Command="{Binding SeeAllPopularCommand}" />
+
+                    </Label.GestureRecognizers>
+
+                </Label>
+
+            </StackLayout>
+
+            <CollectionView ItemsSource="{Binding PopularPlaces}"
+                            SelectionMode="None"
+                            HeightRequest="250"
+                            HorizontalScrollBarVisibility="Never">
+    
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal" />
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+
+                    <DataTemplate>
+                        <customview:PlaceView />
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+            <StackLayout Orientation="Horizontal">
+
+                <Label Text="{x:Static res:AppResources.Favorite}"
+                        Style="{StaticResource BoldMediumSecondaryLabelStyle}"
+                        HorizontalOptions="StartAndExpand"
+                        VerticalOptions="Center" />
+
+                <Label Text="{x:Static res:AppResources.SeeAll}"
+                        TextColor="{AppThemeBinding Light={StaticResource PrimaryColorLight},
+                            Dark={StaticResource PrimaryColorDark}}"
+                        TextDecorations="Underline"
+                        FontSize="Medium"
+                        HorizontalOptions="End"
+                        VerticalOptions="Center">
+
+                    <Label.GestureRecognizers>
+
+                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                Command="{Binding SeeAllFavoriteCommand}" />
+
+                    </Label.GestureRecognizers>
+
+                </Label>
+
+            </StackLayout>
+
+            <CollectionView ItemsSource="{Binding FavoritePlaces}"
+                            SelectionMode="None"
+                            HeightRequest="250"
+                            HorizontalScrollBarVisibility="Never">
+
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal" />
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+
+                    <DataTemplate>
+                        <customview:PlaceView />
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+        </StackLayout>
+
+    </ScrollView>
+
+</ContentPage>

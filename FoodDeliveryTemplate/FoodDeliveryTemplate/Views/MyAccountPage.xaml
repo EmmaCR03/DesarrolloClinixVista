@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FoodDeliveryTemplate.Views.MyAccountPage"
+             xmlns:vm="clr-namespace:FoodDeliveryTemplate.ViewModels"
+             xmlns:md="clr-namespace:FoodDeliveryTemplate.MaterialDesign"
+             xmlns:res="clr-namespace:FoodDeliveryTemplate.Resources"
+             xmlns:template="clr-namespace:FoodDeliveryTemplate.ControlTemplates"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             ios:Page.UseSafeArea="true"
+             BackgroundColor="{AppThemeBinding Dark={StaticResource BackgroundColorDark},
+                Light={StaticResource BackgroundColorLight}}"
+             Title="{Binding Title}">
+
+    <ContentPage.BindingContext>
+        <vm:MyAccountViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid RowDefinitions="*,Auto">
+
+        <ScrollView Grid.RowSpan="2">
+
+            <StackLayout Padding="30"
+                         Spacing="10">
+
+                <Border StrokeThickness="{OnPlatform iOS=5, Android=10}"
+                        StrokeShape="RoundRectangle 75"
+                        Stroke="{AppThemeBinding Light={StaticResource CardColorLight},
+                            Dark={StaticResource CardColorDark}}"
+                        WidthRequest="150"
+                        HeightRequest="150"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+
+                    <Border.Shadow>
+                        <Shadow Brush="Black"
+                                Offset="0,0"
+                                Opacity="0.5"
+                                Radius="20"/>
+                    </Border.Shadow>
+
+                    <Image Source="{Binding CustomerImage}"
+                           Aspect="AspectFill" 
+                           Margin="{OnPlatform iOS=-5, Android=-10}"/>
+
+                </Border>
+
+                <Label Text="{Binding CustomerName}"
+                       HorizontalTextAlignment="Center"
+                       Style="{StaticResource TitlePrimaryLabelStyle}"
+                       Margin="0, 0, 0, 20"/>
+
+                <template:ChicButton Text="{x:Static res:AppResources.Favorites}"
+                                     Icon="{x:Static md:Icons.Favorite}"
+                                     FetchCommand="{Binding FavoritesCommand}"
+                                     ControlTemplate="{StaticResource ChicButtonControlTemplate}" />
+
+                <template:ChicButton Text="{x:Static res:AppResources.Orders}"
+                                     Icon="{x:Static md:Icons.ShoppingBag}"
+                                     FetchCommand="{Binding OrdersCommand}"
+                                     ControlTemplate="{StaticResource ChicButtonControlTemplate}" />
+
+                <template:ChicButton Text="{x:Static res:AppResources.Addresses}"
+                                     Icon="{x:Static md:Icons.LocalShipping}"
+                                     FetchCommand="{Binding AddressesCommand}"
+                                     ControlTemplate="{StaticResource ChicButtonControlTemplate}" />
+
+                <template:ChicButton Text="{x:Static res:AppResources.AccountDetails}"
+                                     Icon="{x:Static md:Icons.Person}"
+                                     FetchCommand="{Binding DetailsCommand}"
+                                     ControlTemplate="{StaticResource ChicButtonControlTemplate}" />
+
+                <template:ChicButton Text="{x:Static res:AppResources.ChangePassword}"
+                                     Icon="{x:Static md:Icons.Lock}"
+                                     FetchCommand="{Binding ChangePasswordCommand}"
+                                     ControlTemplate="{StaticResource ChicButtonControlTemplate}" />
+
+                <ContentView HeightRequest="90"/>
+
+            </StackLayout>
+
+        </ScrollView>
+
+        <Border Style="{StaticResource ButtonPanelStyle}"
+                Grid.Row="1">
+
+            <Button Style="{StaticResource PrimaryButtonStyle}"
+                    Text="{x:Static res:AppResources.LogOut}"
+                    Command="{Binding LogoutCommand}"
+                    HeightRequest="50"
+                    Margin="20"/>
+
+        </Border>
+
+    </Grid>
+
+</ContentPage>

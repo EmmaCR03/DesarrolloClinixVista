@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FoodDeliveryTemplate.Views.PlacesPage"
+             xmlns:vm="clr-namespace:FoodDeliveryTemplate.ViewModels"
+             xmlns:ctrl="clr-namespace:FoodDeliveryTemplate.Controls"
+             xmlns:md="clr-namespace:FoodDeliveryTemplate.MaterialDesign"
+             xmlns:custom="clr-namespace:FoodDeliveryTemplate.CustomViews"
+             xmlns:res="clr-namespace:FoodDeliveryTemplate.Resources"
+             Title="{Binding Title}"
+             BackgroundColor="{AppThemeBinding Dark={StaticResource BackgroundColorDark},
+                Light={StaticResource BackgroundColorLight}}">
+
+    <Shell.SearchHandler>
+
+        <ctrl:PlaceSearchHandler Placeholder="{x:Static res:AppResources.EnterSearchTerm}"
+                                   ShowsResults="true">
+
+            <ctrl:PlaceSearchHandler.ItemTemplate>
+
+                <DataTemplate>
+
+                    <Label Text="{Binding Name}"
+                           Style="{StaticResource MediumSecondaryLabelStyle}"
+                           VerticalTextAlignment="Center"
+                           Padding="10" />
+
+                </DataTemplate>
+
+            </ctrl:PlaceSearchHandler.ItemTemplate>
+
+        </ctrl:PlaceSearchHandler>
+
+    </Shell.SearchHandler>
+
+    <ContentPage.ToolbarItems>
+
+        <ToolbarItem Command="{Binding SortCommand}">
+
+            <ToolbarItem.IconImageSource>
+
+                <FontImageSource FontFamily="Material"
+                                 Glyph="{x:Static md:Icons.SwapVert}" 
+                                 Color="{AppThemeBinding Light={StaticResource PrimaryTextColorLight},
+                                    Dark={StaticResource PrimaryTextColorDark}}"/>
+
+            </ToolbarItem.IconImageSource>
+
+        </ToolbarItem>
+
+    </ContentPage.ToolbarItems>
+
+    <RefreshView x:DataType="vm:PlacesViewModel"
+                 Command="{Binding LoadItemsCommand}"
+                 IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                 Margin="15">
+
+        <CollectionView ItemsSource="{Binding Items}"
+                        SelectionMode="None">
+
+            <CollectionView.ItemsLayout>
+
+                <GridItemsLayout HorizontalItemSpacing="15"
+                                 VerticalItemSpacing="15"
+                                 Orientation="Vertical"
+                                 SnapPointsType="None">
+
+                    <GridItemsLayout.Span>
+                        <OnIdiom x:TypeArguments="x:Int32">
+                            <OnIdiom.Phone>2</OnIdiom.Phone>
+                            <OnIdiom.Tablet>4</OnIdiom.Tablet>
+                        </OnIdiom>
+                    </GridItemsLayout.Span>
+
+                </GridItemsLayout>
+
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <custom:PlaceGridView />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+            <CollectionView.EmptyView>
+                <Grid RowDefinitions="Auto, *, Auto">
+
+                    <ContentView />
+
+                    <StackLayout Padding="30"
+                                 Spacing="10"
+                                 Grid.Row="1"
+                                 VerticalOptions="Center">
+
+                        <Label Text="{x:Static res:AppResources.NoItems}"
+                               Style="{StaticResource MediumSecondaryLabelStyle}"
+                               HorizontalTextAlignment="Center" />
+
+                        <Image Margin="20">
+                            <Image.Source>
+                                <FontImageSource Glyph="{x:Static md:Icons.Search}"
+                                                 FontFamily="Material"
+                                                 Color="{AppThemeBinding Light={StaticResource SecondaryTextColorLight},
+                                                    Dark={StaticResource SecondaryTextColorDark}}"
+                                                 Size="120" />
+                            </Image.Source>
+                        </Image>
+
+                    </StackLayout>
+
+                    <ContentView Grid.Row="2" />
+
+                </Grid>
+
+            </CollectionView.EmptyView>
+
+        </CollectionView>
+
+    </RefreshView>
+
+</ContentPage>

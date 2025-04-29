@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="FoodDeliveryTemplate.ControlTemplates.Badge">
+
+    <ContentView.Resources>
+
+        <ControlTemplate x:Key="BadgeControlTemplate">
+
+            <Border StrokeThickness="{OnPlatform iOS=5, Android=10}"
+                    StrokeShape="RoundRectangle 75"
+                    Stroke="{AppThemeBinding Light={StaticResource PrimaryLightColor},
+                        Dark={StaticResource PrimaryColorDark}}"
+                    WidthRequest="150"
+                    HeightRequest="150"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Margin="0,10,0,10"
+                    BindingContext="{Binding Source={RelativeSource TemplatedParent}}">
+
+                <Border.Shadow>
+                    <Shadow Brush="Black"
+                            Offset="0,0"
+                            Opacity="0.5"
+                            Radius="20"/>
+                </Border.Shadow>
+
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="{AppThemeBinding Light={StaticResource PrimaryLightColor},
+                                            Dark=Transparent}"
+                                      Offset="0.1" />
+                        <GradientStop Color="{AppThemeBinding Light={StaticResource PrimaryColorLight},
+                                            Dark=Transparent}"
+                                      Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Background>
+
+                <Image Margin="20">
+                    <Image.Source>
+
+                        <FontImageSource Glyph="{Binding BadgeIcon}"
+                                            FontFamily="Material"
+                                            Color="{AppThemeBinding Light=White,
+                                            Dark={StaticResource PrimaryColorDark}}"
+                                            Size="120" />
+
+                    </Image.Source>
+                </Image>
+
+            </Border>
+
+        </ControlTemplate>
+
+    </ContentView.Resources>
+
+</ContentView>

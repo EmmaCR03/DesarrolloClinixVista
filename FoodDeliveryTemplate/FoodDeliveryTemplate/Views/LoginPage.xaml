@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:FoodDeliveryTemplate.ViewModels"
+             xmlns:md="clr-namespace:FoodDeliveryTemplate.MaterialDesign"
+             xmlns:template="clr-namespace:FoodDeliveryTemplate.ControlTemplates"
+             xmlns:res="clr-namespace:FoodDeliveryTemplate.Resources"
+             mc:Ignorable="d"
+             x:Class="FoodDeliveryTemplate.Views.LoginPage"
+             Shell.NavBarIsVisible="False"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             ios:Page.UseSafeArea="true"
+             BackgroundColor="{AppThemeBinding
+                Dark={StaticResource BackgroundColorDark},
+                Light={StaticResource BackgroundColorLight}}">
+
+    <ContentPage.BindingContext>
+        <vm:LoginViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid RowDefinitions="*,Auto">
+
+        <ScrollView Grid.RowSpan="2">
+
+            <StackLayout Padding="30" Spacing="10">
+
+                <Label Text="{x:Static res:AppResources.WelcomeLogIn}"
+                       Style="{StaticResource TitlePrimaryLabelStyle}"
+                       HorizontalTextAlignment="Center"/>
+
+                <template:Badge BadgeIcon="{x:Static md:Icons.Spa}"
+                                ControlTemplate="{StaticResource BadgeControlTemplate}"/>
+
+                <Label Text="{x:Static res:AppResources.Username}"
+                       Style="{StaticResource SmallTertiaryLabelStyle}" />
+
+                <template:ChicEntry Text="{Binding Username, Mode=TwoWay}" 
+                                    ControlTemplate="{StaticResource ChicEntryControlTemplate}"/>
+
+                <Label Text="{x:Static res:AppResources.Password}"
+                       Style="{StaticResource SmallTertiaryLabelStyle}"
+                       Margin="0, 10, 0, 0" />
+
+                <template:ChicEntry Text="{Binding Password, Mode=TwoWay}" 
+                                    ControlTemplate="{StaticResource ChicEntryControlTemplate}"/>
+
+                <StackLayout Orientation="Horizontal" Spacing="0">
+
+                    <Label Text="{x:Static res:AppResources.RememberMe}"
+                           Style="{StaticResource SmallTertiaryLabelStyle}"
+                           VerticalOptions="Center">
+
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                  Command="{Binding RememberMeCommand}" />
+                        </Label.GestureRecognizers>
+
+                    </Label>
+
+                    <CheckBox Color="{AppThemeBinding Light={StaticResource PrimaryColorLight},
+                                Dark={StaticResource PrimaryColorDark}}"
+                              VerticalOptions="Center"
+                              IsChecked="{Binding RememberMe}" />
+
+                    <Label Text="{x:Static res:AppResources.ForgotPassword}"
+                           TextColor="{AppThemeBinding Light={StaticResource PrimaryColorLight},
+                                Dark={StaticResource PrimaryColorDark}}"
+                           TextDecorations="Underline"
+                           FontSize="Medium"
+                           HorizontalTextAlignment="End"
+                           VerticalOptions="Center"
+                           HorizontalOptions="FillAndExpand">
+
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                  Command="{Binding ResetPasswordCommand}" />
+                        </Label.GestureRecognizers>
+
+                    </Label>
+
+                </StackLayout>
+
+            <ContentView HeightRequest="134"/>
+
+        </StackLayout>
+
+        </ScrollView>
+
+        <Border Style="{StaticResource ButtonPanelStyle}"
+                Grid.Row="1">
+
+            <StackLayout Spacing="20"
+                         Margin="20">
+
+                <Label Style="{StaticResource MediumSecondaryLabelStyle}"
+                       HorizontalTextAlignment="Center"
+                       HorizontalOptions="FillAndExpand"
+                       HeightRequest="24">
+
+                    <Label.FormattedText>
+
+                        <FormattedString>
+
+                            <Span Text="{x:Static res:AppResources.DontHaveAccount}" />
+
+                            <Span Text="{x:Static res:AppResources.SignUp}"
+                                  TextColor="{AppThemeBinding Light={StaticResource PrimaryColorLight},
+                                        Dark={StaticResource PrimaryColorDark}}"
+                                  TextDecorations="Underline"/>
+
+                        </FormattedString>
+
+                    </Label.FormattedText>
+
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                                              Command="{Binding SignUpCommand}" />
+                    </Label.GestureRecognizers>
+
+                </Label>
+
+                <Button Style="{StaticResource PrimaryButtonStyle}"
+                        Text="{x:Static res:AppResources.LogIn}"
+                        Command="{Binding LoginCommand}"
+                        HeightRequest="50"/>
+
+            </StackLayout>
+
+        </Border>
+
+    </Grid>
+
+</ContentPage>

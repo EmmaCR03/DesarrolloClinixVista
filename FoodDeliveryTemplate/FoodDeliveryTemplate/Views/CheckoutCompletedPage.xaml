@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:md="clr-namespace:FoodDeliveryTemplate.MaterialDesign"
+             xmlns:res="clr-namespace:FoodDeliveryTemplate.Resources"
+             xmlns:template="clr-namespace:FoodDeliveryTemplate.ControlTemplates"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             ios:Page.UseSafeArea="true"
+             Shell.NavBarIsVisible="False"
+             x:Class="FoodDeliveryTemplate.Views.CheckoutCompletedPage"
+             BackgroundColor="{AppThemeBinding Dark={StaticResource BackgroundColorDark},
+                Light={StaticResource BackgroundColorLight}}">
+
+    <Grid RowDefinitions="*, Auto"
+          Padding="30">
+
+        <StackLayout Spacing="10"
+                     VerticalOptions="Center">
+
+            <Label Text="{x:Static res:AppResources.Congratulations}"
+                   Style="{StaticResource TitlePrimaryLabelStyle}"
+                   HorizontalTextAlignment="Center" />
+
+            <Label Text="{x:Static res:AppResources.YourOrderReceived}"
+                   Style="{StaticResource MediumTertiaryLabelStyle}"
+                   HorizontalTextAlignment="Center" />
+
+            <template:Badge BadgeIcon="{x:Static md:Icons.CheckCircleOutline}"
+                            ControlTemplate="{StaticResource BadgeControlTemplate}"/>
+
+        </StackLayout>
+
+        <StackLayout Grid.Row="1"
+                     VerticalOptions="End">
+
+            <Button Style="{StaticResource PrimaryButtonStyle}"
+                    Text="{x:Static res:AppResources.Continue}"
+                    Clicked="OnContinueTapped" 
+                    Margin="20"/>
+
+        </StackLayout>
+
+    </Grid>
+
+</ContentPage>

@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:FoodDeliveryTemplate.ViewModels"
+    xmlns:md="clr-namespace:FoodDeliveryTemplate.MaterialDesign"
+    xmlns:res="clr-namespace:FoodDeliveryTemplate.Resources"
+    xmlns:template="clr-namespace:FoodDeliveryTemplate.ControlTemplates"
+    x:Class="FoodDeliveryTemplate.CustomViews.PlaceGridView"
+    x:DataType="vm:PlaceViewModel">
+    
+    <Border StrokeThickness="0"
+            StrokeShape="RoundRectangle 20"
+            BackgroundColor="{AppThemeBinding Light={StaticResource CardColorLight},
+                Dark={StaticResource CardColorDark}}">
+        
+            <Grid RowDefinitions="*, 2*, *, Auto"
+                ColumnDefinitions="*, *, *"
+                ColumnSpacing="0"
+                RowSpacing="0"
+                VerticalOptions="FillAndExpand">
+
+            <Image Source="{Binding Image}"
+                    Aspect="AspectFill"
+                    Grid.ColumnSpan="3"
+                    Grid.RowSpan="3"/>
+
+            <Label Text="{x:Static md:Icons.Favorite}"
+                    IsVisible="{Binding IsFavorite}"
+                    TextColor="{AppThemeBinding Light={StaticResource PrimaryColorLight},
+                        Dark={StaticResource PrimaryColorDark}}"
+                    FontFamily="Material"
+                    FontSize="30"
+                    VerticalTextAlignment="Center"
+                    HorizontalTextAlignment="Center"
+                    Grid.Column="2"
+                    Grid.Row="0"/>
+
+                <StackLayout Grid.Row="3"
+                            Grid.ColumnSpan="3"
+                            Padding="5"
+                            Spacing="5">
+
+                    <template:RatingStars Rating="{Binding AverageRating}"
+                                        ControlTemplate="{StaticResource RatingStarsControlTemplate}"/>
+
+                    <Label Text="{Binding Name}"
+                        Style="{StaticResource SmallSecondaryLabelStyle}"
+                        LineBreakMode="WordWrap"
+                        MaxLines="1"
+                        HorizontalOptions="FillAndExpand"
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Center"/>
+
+                    <StackLayout Orientation="Horizontal"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center"
+                                 Spacing="5">
+
+                        <Label Text="{x:Static md:Icons.Schedule}"
+                            FontFamily="Material"
+                            FontSize="Large"
+                            TextColor="{AppThemeBinding Light={StaticResource PrimaryColorLight},
+                                Dark={StaticResource PrimaryColorDark}}"
+                            VerticalOptions="Center"/>
+
+                        <Label Text="{Binding DeliveryTime, StringFormat={x:Static res:AppResources.ShortenDeliveryTime}}"
+                            Style="{StaticResource SmallSecondaryLabelStyle}"
+                            MaxLines="1"
+                            VerticalOptions="Center"/>
+
+                        <Label Text="{x:Static md:Icons.DeliveryDining}"
+                            FontFamily="Material"
+                            FontSize="Large"
+                            TextColor="{AppThemeBinding Light={StaticResource PrimaryColorLight},
+                                Dark={StaticResource PrimaryColorDark}}"
+                            VerticalOptions="Center"/>
+
+                        <Label Text="{Binding DeliveryPrice, StringFormat={x:Static res:AppResources.ShortenCurrency}}"
+                            Style="{StaticResource SmallSecondaryLabelStyle}"
+                            MaxLines="1"
+                            VerticalOptions="Center"/>
+
+                    </StackLayout>
+
+
+                </StackLayout>
+
+                <Grid.GestureRecognizers>
+
+                    <TapGestureRecognizer NumberOfTapsRequired="1"
+                                        Command="{Binding PlaceCommand}"		
+                                        CommandParameter="{Binding .}"/>
+
+                </Grid.GestureRecognizers>
+
+            </Grid>
+
+    </Border>
+
+
+</ContentView>
